@@ -187,11 +187,11 @@ a:hover { color: var(--suriname-red); }
    CARDS Y GRIDS
    ===================== */
 .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 1.6rem; }
-.feature-card { border-radius: 14px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.feature-card { border-radius: 14px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); word-wrap: break-word; overflow-wrap: break-word; }
 .feature-card:nth-child(1) { background: linear-gradient(135deg, #fffbe6 60%, #ffe066 100%); border: 2px solid var(--suriname-yellow); }
 .feature-card:nth-child(2) { background: linear-gradient(135deg, #e6fff2 60%, #37e29c 100%); border: 2px solid var(--suriname-green); }
 .feature-card:nth-child(3) { background: linear-gradient(135deg, #ffe6e6 60%, #ff7b7b 100%); border: 2px solid var(--suriname-red); }
-.feature-card h3 { color: var(--suriname-red); }
+.feature-card h3 { color: var(--suriname-red); word-wrap: break-word; overflow-wrap: break-word; hyphens: auto; }
 .highlight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
 .highlight-card { border-radius: 18px; padding: 2rem; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .highlight-card:nth-child(1) { background: linear-gradient(135deg, #fffbe6 60%, #ffe066 100%); border: 3px solid var(--suriname-yellow); box-shadow: 0 8px 25px rgba(255,215,0,0.15); }
