@@ -69,16 +69,32 @@
     <div class="branding">
       <img src="assets/images/logo.svg" alt="Basisschool De Hoeksteen logo" class="branding__logo">
     </div>
-    <nav class="site-nav" id="site-nav">
-      <ul>
-        <li><a href="#welkom">Welkom</a></li>
-        <li><a href="#basisschool">Basisschool</a></li>
-        <li><a href="#college">College</a></li>
-        <li><a href="#team">Ons team</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
   </header>
+
+  <button class="floating-menu-toggle" type="button" aria-label="Open navigatiemenu" aria-expanded="false" data-menu-toggle>
+    <span class="sr-only">Open hoofdmenu</span>
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  <div class="floating-menu" data-floating-menu aria-hidden="true">
+    <div class="floating-menu__overlay" data-menu-overlay></div>
+    <div class="floating-menu__panel" role="dialog" aria-modal="true" aria-label="Hoofdmenu">
+      <div class="floating-menu__header">
+        <p>Menu</p>
+        <button class="floating-menu__close" type="button" aria-label="Sluit menu" data-menu-close>
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <nav class="floating-menu__nav">
+        <ul>
+          <li><a href="#welkom">Welkom</a></li>
+          <li><a href="#basisschool">Basisschool</a></li>
+          <li><a href="#college">College</a></li>
+          <li><a href="#team">Ons team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 
   <main>
     <!-- Slideshow Section -->

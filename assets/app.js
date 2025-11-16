@@ -1,18 +1,63 @@
 ﻿(() => {
-  // Navigation toggle functionality
-  const navToggle = document.querySelector('[data-nav-toggle]');
-  const nav = document.querySelector('[data-navigation]');
-  if (navToggle && nav) {
-    navToggle.addEventListener('click', () => {
-      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', String(!expanded));
-      nav.classList.toggle('open', !expanded);
+  // Floating navigation menu
+  const floatingMenu = document.querySelector('[data-floating-menu]');
+  const menuToggle = document.querySelector('[data-menu-toggle]');
+  const menuOverlay = document.querySelector('[data-menu-overlay]');
+  const menuClose = document.querySelector('[data-menu-close]');
+  let previouslyFocusedElement = null;
+
+  if (floatingMenu && menuToggle) {
+    const menuLinks = floatingMenu.querySelectorAll('.floating-menu__nav a');
+
+    const openMenu = () => {
+      if (floatingMenu.classList.contains('floating-menu--open')) return;
+      previouslyFocusedElement = document.activeElement;
+      floatingMenu.classList.add('floating-menu--open');
+      floatingMenu.setAttribute('aria-hidden', 'false');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('menu-open');
+      const firstLink = floatingMenu.querySelector('.floating-menu__nav a');
+      if (firstLink) {
+        setTimeout(() => firstLink.focus(), 80);
+      }
+    };
+
+    const closeMenu = () => {
+      if (!floatingMenu.classList.contains('floating-menu--open')) return;
+      floatingMenu.classList.remove('floating-menu--open');
+      floatingMenu.setAttribute('aria-hidden', 'true');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
+      if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
+        previouslyFocusedElement.focus();
+      } else {
+        menuToggle.focus();
+      }
+    };
+
+    menuToggle.addEventListener('click', () => {
+      if (floatingMenu.classList.contains('floating-menu--open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
-    nav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
+
+    [menuOverlay, menuClose].forEach((el) => {
+      if (el) {
+        el.addEventListener('click', closeMenu);
+      }
+    });
+
+    menuLinks.forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && floatingMenu.classList.contains('floating-menu--open')) {
+        event.preventDefault();
+        closeMenu();
+      }
     });
   }
 
