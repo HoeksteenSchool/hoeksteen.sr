@@ -134,6 +134,28 @@
     }
   };
 
+  window.goToStep = function(targetStep) {
+    // Only allow navigation to completed steps or the next step
+    if (targetStep < currentStep) {
+      // Can always go back to previous steps
+      currentStep = targetStep;
+      showStep(currentStep);
+    } else if (targetStep === currentStep + 1) {
+      // Going forward one step - validate current step
+      if (validateStep(currentStep)) {
+        currentStep = targetStep;
+        showStep(currentStep);
+      }
+    } else if (targetStep > currentStep + 1) {
+      // Can't skip ahead - validate and go forward one step at a time
+      if (validateStep(currentStep)) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    }
+    // If targetStep === currentStep, do nothing (already there)
+  };
+
   function showStep(step) {
     // Update step indicators
     document.querySelectorAll('.step').forEach((stepEl, index) => {
@@ -143,6 +165,12 @@
       } else if (index + 1 === step) {
         stepEl.classList.add('active');
       }
+      
+      // Make step clickable
+      stepEl.style.cursor = 'pointer';
+      stepEl.onclick = function() {
+        goToStep(index + 1);
+      };
     });
 
     // Show current step content
@@ -159,6 +187,12 @@
     
     prevBtn.style.display = step === 1 ? 'none' : 'block';
     nextBtn.textContent = step === totalSteps ? 'Voltooien' : 'Volgende';
+
+    // Scroll to top of modal body
+    const modalBody = document.querySelector('#registrationForm');
+    if (modalBody) {
+      modalBody.scrollTop = 0;
+    }
 
     // Show summary on last step
     if (step === totalSteps) {
